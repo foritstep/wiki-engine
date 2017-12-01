@@ -7,7 +7,11 @@ $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'controllerNamespace' => 'app\commands',
+    'controllerNamespace' => 'commands',
+    'aliases' => [
+        '@admin' => '@app/admin',
+        '@commands' => dirname(__DIR__) . '/commands'
+    ],
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -23,13 +27,15 @@ $config = [
         'db' => $db,
     ],
     'params' => $params,
-    /*
     'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
-        ],
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationTable' => 'migrations',
+            'migrationPath' => dirname(__DIR__) . '/migrations',
+            'interactive' => false
+        ]
     ],
-    */
+    
 ];
 
 if (YII_ENV_DEV) {
