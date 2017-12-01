@@ -25,13 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'title',
-            'content:ntext',
-        ],
-    ]) ?>
+    <main>
+        <?= $model->purified_content ?>
+    </main>
 
 </div>
