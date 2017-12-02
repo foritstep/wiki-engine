@@ -4,6 +4,7 @@ namespace app\models;
 
 use bupy7\bbcode\BBCodeBehavior;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "pages".
@@ -20,7 +21,7 @@ class Page extends \yii\db\ActiveRecord
         return [
             [
                 'class' => BBCodeBehavior::className(),
-                'attribute' => 'content',
+                'attribute' => 'encoded_content',
                 'saveAttribute' => 'purified_content',
             ],
         ];
@@ -57,5 +58,9 @@ class Page extends \yii\db\ActiveRecord
             'content' => 'Content',
             'purified_content' => 'Purified Content',
         ];
+    }
+
+    public function getEncoded_content() {
+        return Html::encode($this->content);
     }
 }
