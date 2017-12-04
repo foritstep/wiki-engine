@@ -9,7 +9,6 @@ use yii\helpers\Html;
 /**
  * This is the model class for table "pages".
  *
- * @property integer $id
  * @property string $title
  * @property string $content
  * @property string $purified_content
@@ -44,6 +43,7 @@ class Page extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['content', 'purified_content'], 'string'],
             [['title'], 'string', 'max' => 255],
+            [['title'], 'unique'],
         ];
     }
 
@@ -53,7 +53,6 @@ class Page extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'title' => 'Title',
             'content' => 'Content',
             'purified_content' => 'Purified Content',

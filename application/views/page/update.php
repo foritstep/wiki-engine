@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Update Page: ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->title]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="page-update">
