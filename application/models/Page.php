@@ -5,6 +5,7 @@ namespace app\models;
 use bupy7\bbcode\BBCodeBehavior;
 use Yii;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "pages".
@@ -22,10 +23,23 @@ class Page extends \yii\db\ActiveRecord
                 'class' => BBCodeBehavior::className(),
                 'attribute' => 'encoded_content',
                 'saveAttribute' => 'purified_content',
+                'codeDefinitionBuilder' => [
+                    // HACK id указан пустым, как следствие он приклеится из значения {option}
+                    function($builder) {
+                        $builder->setTagName('page');
+                        $builder->setReplacementText('<a href="' . Url::to(['page/view', 'id' => '']) . '{option}" class="page-link">{param}</a>');
+                        $builder->setUseOption(true)->setParseContent(true);
+                        return $builder->build();
+                    },
+                    // HACK id указан пустым, как следствие он приклеится из значения {param}
+                    [ 'page', '<a href="' . Url::to(['page/view', 'id' => '']) . '{param}" class="page-link">{param}</a>' ],
+                    [ 'tag', '<blockquote>{param}</blockquote>' ],
+                    'bupy7\bbcode\definitions\DefaultCodeDefinitionSet',
+                ],
             ],
         ];
     }
-    
+
     /**
      * @inheritdoc
      */
