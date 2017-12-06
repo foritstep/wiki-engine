@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <main>
-        <?= $model->purified_content ?>
+        <?= $model->purifiedContent() ?>
     </main>
 
 </div>

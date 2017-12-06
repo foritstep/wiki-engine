@@ -3,9 +3,11 @@
 namespace app\models;
 
 use bupy7\bbcode\BBCodeBehavior;
+use GlHtml\GlHtml;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\Request;
 
 /**
  * This is the model class for table "pages".
@@ -75,5 +77,27 @@ class Page extends \yii\db\ActiveRecord
 
     public function getEncoded_content() {
         return Html::encode($this->content);
+    }
+
+    public function purifiedContent()
+    {
+        $dom = new GlHtml($this->purified_content);
+        $l = $dom->get('.page-link[href^="/web/index.php?r=page%2Fview&id="]');
+        
+        foreach($l as $i) {
+            parse_str(parse_url($i->getAttribute('href'), PHP_URL_QUERY), $output);
+            $links[] = $output['id'];
+            $c[] = [$i, $output['id']]; 
+        }
+        $exist = $this->find()->where(['in', 'title', $links])->all();
+        foreach($exist as $i) {
+           $e[] = $i->title;
+        }
+        foreach($c as $k) {
+            if(!in_array($k[1], $e)) {
+                $k[0]->setAttributes(['class' => 'page-doesnt-exist']);
+            }
+        }
+        return $dom->html();
     }
 }
