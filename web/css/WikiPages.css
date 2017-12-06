@@ -1,7 +1,14 @@
 .page-link {
     background: #DDF;
+    border-radius: 2px;
 }
 
 .page-doesnt-exist {
     background: #FBF;
+    color: #b77ab7;
+    border-radius: 2px;
+}
+
+.page-doesnt-exist:hover {
+    color: #975a97;
 }
