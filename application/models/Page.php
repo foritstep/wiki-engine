@@ -81,9 +81,11 @@ class Page extends \yii\db\ActiveRecord
 
     public function purifiedContent()
     {
+        if($this->purified_content === '') return '';
         $dom = new GlHtml($this->purified_content);
         $l = $dom->get('.page-link[href^="/web/index.php?r=page%2Fview&id="]');
         
+        if(count($l) == 0) return $this->purified_content;
         foreach($l as $i) {
             parse_str(parse_url($i->getAttribute('href'), PHP_URL_QUERY), $output);
             $links[] = $output['id'];
