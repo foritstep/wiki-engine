@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'defaultRoute' => 'page',
     'basePath' => dirname(__DIR__),
     'viewPath' => dirname(__DIR__) . '/application/views',
     'bootstrap' => ['log'],
