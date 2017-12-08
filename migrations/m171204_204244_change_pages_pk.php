@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m171204_204244_update_pages_table
+ * Class m171204_204244_change_pages_pk
  */
-class m171204_204244_update_pages_table extends Migration
+class m171204_204244_change_pages_pk extends Migration
 {
     /**
      * @inheritdoc
@@ -22,7 +22,7 @@ class m171204_204244_update_pages_table extends Migration
      */
     public function safeDown()
     {
-        echo "m171204_204244_update_pages_table cannot be reverted.\n";
+        echo "m171204_204244_change_pages_pk cannot be reverted.\n";
 
         return false;
     }
@@ -36,7 +36,7 @@ class m171204_204244_update_pages_table extends Migration
 
     public function down()
     {
-        echo "m171204_204244_update_pages_table cannot be reverted.\n";
+        echo "m171204_204244_change_pages_pk cannot be reverted.\n";
 
         return false;
     }
