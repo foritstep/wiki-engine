@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
  */
 class PageController extends Controller
 {
+    public $defaultAction = 'view';
     /**
      * @inheritdoc
      */
@@ -49,7 +50,7 @@ class PageController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id = 'index')
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
