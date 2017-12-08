@@ -98,6 +98,7 @@ class Page extends \yii\db\ActiveRecord
             $c[] = [$i, $output['id']]; 
         }
         $exist = $this->find()->where(['in', 'title', $links])->all();
+        $e = [];
         foreach($exist as $i) {
            $e[] = $i->title;
         }
