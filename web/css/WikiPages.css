@@ -12,3 +12,19 @@
 .page-doesnt-exist:hover {
     color: #975a97;
 }
+
+.info {
+    width: 20em;
+    background: #EEE;
+    float: right;
+    padding: 1em;
+    border: 1px solid #CCC;
+}
+
+.anchor {
+    display: block;
+}
+
+.indent {
+    margin-left: 1em;
+}
