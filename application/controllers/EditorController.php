@@ -65,8 +65,11 @@ class EditorController extends Controller
     {
         $model = new Editor();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->nick]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            if($model->save()) {
+                return $this->redirect(['view', 'id' => $model->nick]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,8 +87,11 @@ class EditorController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->nick]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            if($model->save()) {
+                return $this->redirect(['view', 'id' => $model->nick]);
+            }
         } else {
             $model->password = '';
             return $this->render('update', [

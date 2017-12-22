@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\models\Editor;
+use Yii;
 
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
@@ -87,6 +88,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return Yii::$app->getSecurity()->validatePassword($password, $this->password);
     }
 }
