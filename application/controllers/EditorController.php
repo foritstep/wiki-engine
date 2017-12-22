@@ -7,6 +7,7 @@ use app\models\Editor;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
@@ -24,6 +25,22 @@ class EditorController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['view', 'create'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update', 'delete'],
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
@@ -85,6 +102,10 @@ class EditorController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(Yii::$app->user->identity->id !== $id) {
+            Yii::$app->session->setFlash('error', "Невозможно изменить чужую учётную запись");
+            return $this->redirect(['index']);
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -108,6 +129,10 @@ class EditorController extends Controller
      */
     public function actionDelete($id)
     {
+        if(Yii::$app->user->identity->id !== $id) {
+            Yii::$app->session->setFlash('error', "Невозможно удалить чужую учётную запись");
+            return $this->redirect(['index']);
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
