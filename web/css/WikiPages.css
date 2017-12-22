@@ -28,3 +28,10 @@
 .indent {
     margin-left: 1em;
 }
+
+.headers {
+    border: #CCC 1px solid;
+    background: #EEE;
+    width: 25vw;
+    padding: 1em;
+}

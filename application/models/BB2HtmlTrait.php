@@ -66,7 +66,7 @@ trait BB2HtmlTrait {
     }
 
     public function array2Tree($arr, $n) {
-        $t = '';
+        $t = '<div class="headers">';
         foreach($arr as $i) {
             if(is_array($i)) {
                 $t .= "<div class='indent'>{$this->array2Tree($i, $n + 1)}</div>";
@@ -74,7 +74,7 @@ trait BB2HtmlTrait {
                 $t .= "<div><a href='#$i'>$i</a></div>";
             }
         }
-        return $t;
+        return $t . '</div>';
     }
 
     private function arrayFromHeader(&$headers, $current, $value) {
