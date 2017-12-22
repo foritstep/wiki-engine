@@ -1,0 +1,21 @@
+<?php
+
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Discussion */
+
+$this->title = 'Update Discussion: ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Discussions', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->title]];
+$this->params['breadcrumbs'][] = 'Update';
+?>
+<div class="discussion-update">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
+
+</div>
