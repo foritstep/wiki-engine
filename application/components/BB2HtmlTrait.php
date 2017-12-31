@@ -37,13 +37,13 @@ trait BB2HtmlTrait {
 
     public function linkHighlighting($dom, &$html)
     {
-        $l = $dom->get('.page-link[href^="/web/index.php?r=page%2Fview&id="]');
+        $l = $dom->get('.page-link');
 
         if(count($l) == 0) return;
         foreach($l as $i) {
-            parse_str(parse_url($i->getAttribute('href'), PHP_URL_QUERY), $output);
-            $links[] = $output['id'];
-            $c[] = [$i, $output['id']];
+            $text = str_replace('+', ' ', $i->getAttribute('page'));
+            $links[] = $text;
+            $c[] = [$i, $text];
         }
         $exist = $this->find()->where(['in', 'title', $links])->all();
         $e = [];
