@@ -29,11 +29,8 @@ class Discussion extends \yii\db\ActiveRecord
                 'saveAttribute' => 'purified_content',
                 'codeDefinitionBuilder' => [
                     // HACK id указан пустым, как следствие он приклеится из значения {option}
-                    function($builder) {
-                        return $this->pageTag($builder);
-                    },
-                    // HACK id указан пустым, как следствие он приклеится из значения {param}
-                    [ 'page', '<a href="' . Url::to(['page/view', 'id' => '']) . '{param}" class="page-link">{param}</a>' ],
+                    '\app\components\PagesDefenition1',
+                    '\app\components\PagesDefenition2',
                     [ 'tag', '<blockquote>{param}</blockquote>' ],
                     'bupy7\bbcode\definitions\DefaultCodeDefinitionSet',
                 ],

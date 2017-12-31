@@ -14,13 +14,6 @@ trait BB2HtmlTrait {
         return Html::encode($this->content);
     }
 
-    public function pageTag($builder) {
-        $builder->setTagName('page');
-        $builder->setReplacementText('<a href="' . Url::to(['page/view', 'id' => '']) . '{option}" class="page-link">{param}</a>');
-        $builder->setUseOption(true)->setParseContent(true);
-        return $builder->build();
-    }
-
     public function getDom() {
         if($this->purified_content === '' || $this->purified_content === null) {
             if($this->content !== '' && $this->content !== null) {
