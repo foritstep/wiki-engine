@@ -18,7 +18,7 @@ use yii\web\Request;
  */
 class Discussion extends \yii\db\ActiveRecord
 {
-    use BB2HtmlTrait;
+    use \app\components\BB2HtmlTrait;
 
     public function behaviors()
     {
