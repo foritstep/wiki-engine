@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Editor;
+use app\models\EditorPassword;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,7 +30,7 @@ class EditorController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['view', 'create', 'update', 'delete'],
+                'only' => ['view', 'create', 'update', 'delete', 'password'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -38,7 +39,7 @@ class EditorController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'delete'],
+                        'actions' => ['view', 'update', 'delete', 'password'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -152,5 +153,26 @@ class EditorController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionPassword()
+    {
+        $model = new EditorPassword();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $editor = $this->findModel(Yii::$app->user->identity->id);
+            if(Yii::$app->getSecurity()->validatePassword($model->current, $editor->password)) {
+                $editor->password = Yii::$app->getSecurity()->generatePasswordHash($model->new);
+                if($editor->save()) {
+                    return $this->redirect(['view', 'id' => Yii::$app->user->identity->id]);
+                }
+            } else {
+                Yii::$app->session->setFlash('error', "Неверный пароль");
+            }
+        }
+
+        return $this->render('password', [
+            'model' => $model,
+        ]);
     }
 }
