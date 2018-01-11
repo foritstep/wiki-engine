@@ -52,9 +52,13 @@ class PageController extends Controller
      */
     public function actionView($id = 'index')
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        try {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } catch(NotFoundHttpException $e) {
+            return $this->redirect(['create', 'id' => $id]);
+        }
     }
 
     /**
@@ -62,13 +66,17 @@ class PageController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id = '')
     {
         $model = new Page();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->title]);
         } else {
+            if(isset($id)) {
+                $model->title = $id;
+                $model->content = '[color=gray]Данная страница не существует, но ты можешь создать её[/color]';
+            }
             return $this->render('create', [
                 'model' => $model,
             ]);
