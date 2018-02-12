@@ -108,11 +108,19 @@ class EditorController extends Controller
             return $this->redirect(['index']);
         }
         $model = $this->findModel($id);
-
+        $password = $model->password;
         if ($model->load(Yii::$app->request->post())) {
-            $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
-            if($model->save()) {
-                return $this->redirect(['view', 'id' => $model->nick]);
+            if(Yii::$app->getSecurity()->validatePassword($model->password, $password)) {
+                $model->password = $password;
+                if($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->nick]);
+                }
+            } else {
+                $model->password = '';
+                Yii::$app->session->setFlash('error', "Неверный пароль");
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
             }
         } else {
             $model->password = '';
