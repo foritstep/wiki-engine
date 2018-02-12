@@ -1,12 +1,19 @@
 .page-link {
     background: #DDF;
+    color: #337ab7;
     border-radius: 2px;
+    text-decoration: none;
+}
+
+.page-link:hover {
+    text-decoration: underline;
 }
 
 .page-doesnt-exist {
     background: #FBF;
     color: #b77ab7;
     border-radius: 2px;
+    text-decoration: none;
 }
 
 .page-doesnt-exist:hover {

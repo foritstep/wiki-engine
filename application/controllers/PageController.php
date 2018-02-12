@@ -130,4 +130,9 @@ class PageController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionExist($id)
+    {
+        echo json_encode(['exist' => Page::find()->where(['title' => $id])->exists()]);
+    }
 }

@@ -2,12 +2,15 @@
 
 use franciscomaya\sceditor\SCEditor;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Page */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+
+<script>let path_action_exist ='<?= Url::to(['page/exist', 'id' => '']) ?>';</script>
 
 <div class="page-form">
 
@@ -20,6 +23,7 @@ use yii\widgets\ActiveForm;
         'clientOptions' => [
             'plugins' => 'bbcode',
             'width' => '100%',
+            'style' => 'css/WikiPages.css',
         ]
     ]) ?>
 
