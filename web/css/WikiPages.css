@@ -18,6 +18,7 @@
 
 .page-doesnt-exist:hover {
     color: #975a97;
+    text-decoration: underline;
 }
 
 .info {
