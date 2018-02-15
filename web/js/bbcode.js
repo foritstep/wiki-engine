@@ -27,10 +27,22 @@ function PageExist(url) {
 $.sceditor.plugins.bbcode.bbcode.set("page", {
     tags: {
         "a": {
-            "class": "page-link",
+            "class": ["page-link", "page-doesnt-exist"],
         },
     },
-    format: (element, content) => `[page=${console.log(element[0])}]${content}[/h]`,
-    html: (token, attrs, content) => 
-            `<a href='${attrs.defaultattr}' class='${PageExist(attrs.defaultattr)}'>${content}</a>`,
+    format: (element, content) => {
+        if(element[0].attributes['content']) {
+            return `[page]${element[0].attributes['page'].nodeValue}[/page]`;
+        } else {
+            return `[page=${element[0].attributes['page'].nodeValue}]${element[0].innerText}[/page]`;
+        }
+        
+    },
+    html: (token, attrs, content) => {
+        if(attrs.defaultattr) {
+            return `<a href='${path_action_view}${attrs.defaultattr}' class='${PageExist(attrs.defaultattr)}' page='${attrs.defaultattr}'>${content}</a>`;
+        } else {
+            return `<a href='${path_action_view}${content}' class='${PageExist(attrs.defaultattr)}' page='${content}' content>${content}</a>`;
+        }
+    },
 });

@@ -10,7 +10,10 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<script>let path_action_exist ='<?= Url::to(['page/exist', 'id' => '']) ?>';</script>
+<script>
+    let path_action_exist = '<?= Url::to(['page/exist', 'id' => '']) ?>';
+    let path_action_view = '<?= Url::to(['page/view', 'id' => '']) ?>';
+</script>
 
 <div class="page-form">
 
