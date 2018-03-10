@@ -5,10 +5,33 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
+use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 
 class ImagesController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['upload', 'info', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['info'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['upload', 'info', 'delete'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+    
     public $defaultAction = 'upload';
     
     public function actionUpload()
