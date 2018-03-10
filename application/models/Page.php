@@ -30,6 +30,8 @@ class Page extends \yii\db\ActiveRecord
                 'codeDefinitionBuilder' => [
                     '\app\components\PagesDefenition1',
                     '\app\components\PagesDefenition2',
+                    '\app\components\PreviewDefenition1',
+                    '\app\components\PreviewDefenition2',
                     [ 'tag', '<blockquote>{param}</blockquote>' ],
                     'bupy7\bbcode\definitions\DefaultCodeDefinitionSet',
                 ],

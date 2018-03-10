@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
         'clientOptions' => [
             'plugins' => 'bbcode',
             'width' => '100%',
-            'style' => 'css/WikiPages.css',
+            'style' => 'css/editor.css',
         ]
     ]) ?>
 

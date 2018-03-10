@@ -46,3 +46,30 @@ $.sceditor.plugins.bbcode.bbcode.set("page", {
         }
     },
 });
+
+$.sceditor.plugins.bbcode.bbcode.set("preview", {
+    tags: {
+        "div": {
+            "class": ["img-preview"],
+        },
+    },
+    format: (element, content) => {
+        let img = element[0].childNodes[0].childNodes[0];
+        let text = element[0].childNodes[0].childNodes[1];
+        if(text.value !== "") {
+            return `[preview=${img.src}]${text.value}[/preview]`;
+        } else {
+            return `[preview]${img.src}[/preview]`;
+        }
+    },
+    html: (token, attrs, content) => {
+        return '<div class="img-preview"><span class="container">' +
+            (attrs.defaultattr ?
+                `<img title="${content}" src="${attrs.defaultattr}"/><input placeholder="Введите описание" value="${content}" class="description"></input>`
+                :
+                `<img src="${content}"/><input placeholder="Введите описание" value="" class="description"></input>`) +
+        '</span></div>';
+    },
+    isInline: false,
+    isHtmlInline: true,
+});
