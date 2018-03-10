@@ -183,4 +183,11 @@ class EditorController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionMyProfile()
+    {
+        return $this->render('view', [
+            'model' => $this->findModel(Yii::$app->user->identity->username),
+        ]);
+    }
 }
